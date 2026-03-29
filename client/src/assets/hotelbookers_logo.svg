@@ -1,0 +1,118 @@
+<svg width="600" height="320" viewBox="0 0 600 320" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="emeraldGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1B5E42"/>
+      <stop offset="100%" stop-color="#0D3526"/>
+    </linearGradient>
+    <linearGradient id="emeraldLight" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#246B4C"/>
+      <stop offset="100%" stop-color="#164232"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#E8D48B"/>
+      <stop offset="50%" stop-color="#C9A84C"/>
+      <stop offset="100%" stop-color="#A8792A"/>
+    </linearGradient>
+    <linearGradient id="goldShine" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F0E0A0"/>
+      <stop offset="100%" stop-color="#C9A84C"/>
+    </linearGradient>
+    <linearGradient id="windowGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#D4EBE0"/>
+      <stop offset="100%" stop-color="#A8D4C0"/>
+    </linearGradient>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FAF6EE"/>
+      <stop offset="100%" stop-color="#F3EDE0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="600" height="320" rx="16" fill="url(#bgGrad)"/>
+  <rect x="2" y="2" width="596" height="316" rx="15" fill="none" stroke="url(#goldGrad)" stroke-width="1" opacity="0.6"/>
+
+  <!-- Corner ornaments -->
+  <path d="M24 12 L12 12 L12 24" fill="none" stroke="url(#goldGrad)" stroke-width="1.2"/>
+  <circle cx="12" cy="12" r="2.5" fill="url(#goldGrad)"/>
+  <path d="M576 12 L588 12 L588 24" fill="none" stroke="url(#goldGrad)" stroke-width="1.2"/>
+  <circle cx="588" cy="12" r="2.5" fill="url(#goldGrad)"/>
+  <path d="M24 308 L12 308 L12 296" fill="none" stroke="url(#goldGrad)" stroke-width="1.2"/>
+  <circle cx="12" cy="308" r="2.5" fill="url(#goldGrad)"/>
+  <path d="M576 308 L588 308 L588 296" fill="none" stroke="url(#goldGrad)" stroke-width="1.2"/>
+  <circle cx="588" cy="308" r="2.5" fill="url(#goldGrad)"/>
+
+  <!-- Building icon -->
+  <g transform="translate(36, 60)">
+    <!-- Shadow -->
+    <rect x="5" y="22" width="110" height="148" rx="10" fill="#0D3526" opacity="0.12"/>
+    <!-- Body -->
+    <rect x="0" y="18" width="110" height="148" rx="10" fill="url(#emeraldGrad)"/>
+    <!-- Roof -->
+    <polygon points="-10,18 55,-12 120,18" fill="url(#emeraldLight)"/>
+    <polygon points="8,18 55,0 102,18" fill="none" stroke="url(#goldGrad)" stroke-width="0.8" opacity="0.7"/>
+    <!-- Flagpole -->
+    <line x1="55" y1="-12" x2="55" y2="-26" stroke="url(#goldGrad)" stroke-width="1.2"/>
+    <polygon points="55,-26 68,-20 55,-14" fill="url(#goldGrad)"/>
+    <!-- Cornice -->
+    <rect x="0" y="16" width="110" height="5" rx="0" fill="url(#goldGrad)" opacity="0.4"/>
+    <!-- Windows row 1 -->
+    <rect x="10" y="32" width="20" height="16" rx="3" fill="url(#windowGrad)" opacity="0.85"/>
+    <rect x="45" y="32" width="20" height="16" rx="3" fill="url(#windowGrad)" opacity="0.85"/>
+    <rect x="80" y="32" width="20" height="16" rx="3" fill="url(#windowGrad)" opacity="0.85"/>
+    <rect x="10" y="47" width="20" height="2" rx="1" fill="url(#goldGrad)" opacity="0.5"/>
+    <rect x="45" y="47" width="20" height="2" rx="1" fill="url(#goldGrad)" opacity="0.5"/>
+    <rect x="80" y="47" width="20" height="2" rx="1" fill="url(#goldGrad)" opacity="0.5"/>
+    <!-- Windows row 2 -->
+    <rect x="10" y="58" width="20" height="16" rx="3" fill="url(#windowGrad)" opacity="0.75"/>
+    <rect x="45" y="58" width="20" height="16" rx="3" fill="url(#windowGrad)" opacity="0.75"/>
+    <rect x="80" y="58" width="20" height="16" rx="3" fill="url(#windowGrad)" opacity="0.75"/>
+    <rect x="10" y="73" width="20" height="2" rx="1" fill="url(#goldGrad)" opacity="0.4"/>
+    <rect x="45" y="73" width="20" height="2" rx="1" fill="url(#goldGrad)" opacity="0.4"/>
+    <rect x="80" y="73" width="20" height="2" rx="1" fill="url(#goldGrad)" opacity="0.4"/>
+    <!-- Windows row 3 -->
+    <rect x="10" y="84" width="20" height="16" rx="3" fill="url(#windowGrad)" opacity="0.65"/>
+    <rect x="80" y="84" width="20" height="16" rx="3" fill="url(#windowGrad)" opacity="0.65"/>
+    <!-- Mid cornice -->
+    <rect x="0" y="104" width="110" height="3" fill="url(#goldGrad)" opacity="0.3"/>
+    <!-- Columns -->
+    <rect x="28" y="107" width="7" height="59" rx="2" fill="url(#emeraldLight)"/>
+    <rect x="75" y="107" width="7" height="59" rx="2" fill="url(#emeraldLight)"/>
+    <rect x="25" y="105" width="13" height="4" rx="1" fill="url(#goldGrad)" opacity="0.7"/>
+    <rect x="72" y="105" width="13" height="4" rx="1" fill="url(#goldGrad)" opacity="0.7"/>
+    <!-- Arched door -->
+    <path d="M37 166 L37 124 Q55 109 73 124 L73 166 Z" fill="url(#goldShine)" opacity="0.95"/>
+    <path d="M39 124 Q55 111 71 124" fill="none" stroke="url(#goldGrad)" stroke-width="1"/>
+    <rect x="39" y="132" width="14" height="16" rx="2" fill="url(#goldGrad)" opacity="0.35"/>
+    <rect x="57" y="132" width="14" height="16" rx="2" fill="url(#goldGrad)" opacity="0.35"/>
+    <circle cx="67" cy="146" r="2.5" fill="url(#emeraldGrad)"/>
+    <!-- Steps -->
+    <rect x="20" y="166" width="70" height="5" rx="1" fill="url(#emeraldLight)"/>
+    <rect x="12" y="170" width="86" height="4" rx="1" fill="url(#goldGrad)" opacity="0.25"/>
+    <rect x="6"  y="173" width="98" height="3" rx="1" fill="url(#goldGrad)" opacity="0.15"/>
+    <!-- Key badge -->
+    <g transform="translate(74, 122)">
+      <circle cx="16" cy="16" r="17" fill="url(#emeraldGrad)" stroke="url(#goldGrad)" stroke-width="1.2"/>
+      <circle cx="16" cy="10" r="5.5" fill="none" stroke="url(#goldGrad)" stroke-width="2"/>
+      <rect x="14.5" y="14.5" width="3" height="10" rx="1" fill="url(#goldGrad)"/>
+      <rect x="17.5" y="18" width="3.5" height="2" rx="0.5" fill="url(#goldGrad)"/>
+      <rect x="17.5" y="21.5" width="2.5" height="2" rx="0.5" fill="url(#goldGrad)"/>
+    </g>
+  </g>
+
+  <!-- Wordmark -->
+  <text font-family="'Cormorant Garamond', 'Times New Roman', serif" font-weight="600" font-size="56" fill="#0D3526" letter-spacing="8" x="175" y="140">HOTEL</text>
+  <rect x="175" y="152" width="390" height="1" fill="url(#goldGrad)" opacity="0.8"/>
+  <text font-family="'Cormorant Garamond', 'Times New Roman', serif" font-weight="700" font-size="56" fill="#C9A84C" letter-spacing="4" x="175" y="210">BOOKERS</text>
+  <rect x="175" y="222" width="390" height="1" fill="url(#goldGrad)" opacity="0.4"/>
+
+  <!-- Diamond ornament -->
+  <g transform="translate(368, 240)">
+    <polygon points="0,-6 5,0 0,6 -5,0" fill="url(#goldGrad)" opacity="0.7"/>
+  </g>
+
+  <!-- Tagline -->
+  <text font-family="'Raleway', 'Helvetica Neue', sans-serif" font-weight="300" font-size="11" fill="#5A8070" letter-spacing="4" text-anchor="middle" x="368" y="268">YOUR STAY, PERFECTLY PLACED</text>
+
+  <!-- Stars -->
+  <text font-size="13" fill="#C9A84C" text-anchor="middle" x="368" y="295" opacity="0.8">★  ★  ★  ★  ★</text>
+</svg>
