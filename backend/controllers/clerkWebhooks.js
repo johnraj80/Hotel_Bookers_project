@@ -14,17 +14,17 @@ const clerkWebhooks = async (req, res) => {
     };
 
     // FIXED: Convert the raw Buffer into a string for verification
-    // const payloadString = req.body.toString('utf8');
+    const payloadString = req.body.toString('utf8');
 
     // Verifying Headers using the raw string
-    // await whook.verify(payloadString, headers);
-    await whook.verify(JSON.stringify(req.body), headers)
+    await whook.verify(payloadString, headers);
+    // await whook.verify(JSON.stringify(req.body), headers)
 
 
     // FIXED: Parse the string into a JavaScript object to extract the data
-    // const parsedBody = JSON.parse(payloadString);
-    // const { data, type } = parsedBody;
-    const { data, type } = req.body
+    const parsedBody = JSON.parse(payloadString);
+    const { data, type } = parsedBody;
+    // const { data, type } = req.body
     // Switch Cases for different Events
 
     
