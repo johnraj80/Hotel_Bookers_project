@@ -2,6 +2,7 @@
 
 export const getUserData = async (req, res)=>{
     try {
+        await connectDB();
         const role = req.user.role;
         const recentSearchedCities = req.user.recentSearchedCities;
         res.json({success: true, role, recentSearchedCities})

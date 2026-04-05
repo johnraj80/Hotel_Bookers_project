@@ -1,10 +1,12 @@
 import Hotel from "../models/Hotel.js";
 import User from "../models/User.js";
 import Booking from "../models/Booking.js";
+import connectDB from "../configs/db.js";
 
 // --- For AdminDashboard.jsx ---
 export const getDashboardStats = async (req, res) => {
   try {
+    await connectDB();
     const totalHotels = await Hotel.countDocuments();
     const verifiedHotels = await Hotel.countDocuments({ isVerified: true });
     const pendingVerification = totalHotels - verifiedHotels;
@@ -39,6 +41,7 @@ export const getDashboardStats = async (req, res) => {
 // --- For HotelVerification.jsx ---
 export const getPendingHotels = async (req, res) => {
   try {
+    await connectDB();
     // Fetch hotels that are not verified and populate the owner's details
     const pendingHotels = await Hotel.find({ isVerified: false })
       .populate("owner", "username email")
@@ -52,6 +55,7 @@ export const getPendingHotels = async (req, res) => {
 
 export const verifyHotel = async (req, res) => {
   try {
+    await connectDB();
     const { hotelId, action } = req.body; // action will be 'approve' or 'reject'
 
     if (action === 'approve') {
@@ -72,6 +76,7 @@ export const verifyHotel = async (req, res) => {
 // --- For RegisteredHotels.jsx ---
 export const getRegisteredHotels = async (req, res) => {
   try {
+    await connectDB();
     const verifiedHotels = await Hotel.find({ isVerified: true })
       .populate("owner", "username email")
       .sort({ createdAt: -1 });
@@ -87,6 +92,7 @@ export const getRegisteredHotels = async (req, res) => {
 // --- For Transactions.jsx ---
 export const getTransactions = async (req, res) => {
   try {
+    await connectDB();
     const transactions = await Booking.find()
       .populate("hotel", "name")
       .populate("user", "username")
@@ -101,6 +107,7 @@ export const getTransactions = async (req, res) => {
 // --- For Users.jsx ---
 export const getUserStats = async (req, res) => {
   try {
+    await connectDB();
     const totalUsers = await User.countDocuments();
     const guests = await User.countDocuments({ role: "user" });
     const hotelOwners = await User.countDocuments({ role: "hotelOwner" });
