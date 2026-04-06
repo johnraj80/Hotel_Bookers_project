@@ -1,9 +1,7 @@
-import connectDB from "../configs/db.js";
 import User from "../models/User.js";
 import { Webhook } from "svix";
 
 const clerkWebhooks = async (req, res) => {
-  await connectDB();
 
   try {
     const WEBHOOK_SECRET = process.env.CLERK_WEBHOOK_SECRET;
@@ -60,6 +58,7 @@ const clerkWebhooks = async (req, res) => {
             username: fullName,
             image: data.image_url || "",
             role: data.public_metadata?.role || "user",
+
         }
         await User.create(userData);
         break;
@@ -77,7 +76,7 @@ const clerkWebhooks = async (req, res) => {
             image: data.image_url || "",
             role: data.public_metadata?.role || "user",
         }
-        await User.findByIdAndUpdate(data.id, userData);
+        await User.findByIdAndUpdate(data.id, userData, { runValidators: true });
         break;
       }
 

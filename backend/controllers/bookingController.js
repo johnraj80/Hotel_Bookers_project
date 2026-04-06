@@ -7,7 +7,6 @@ import Room from "../models/Room.js";
 // Function to Check Availablity of Room
 const checkAvailability = async ({ checkInDate, checkOutDate, room })=>{
     try {
-        await connectDB();
         const bookings = await Booking.find({
             room,
             checkInDate: {$lte: new Date(checkOutDate)},
@@ -39,7 +38,6 @@ export const checkAvailabilityAPI = async (req, res) =>{
 
 export const createBooking = async (req, res) =>{
     try {
-        await connectDB();
         const { room, checkInDate, checkOutDate, guests } = req.body;
         const user = req.user._id;
 
@@ -107,7 +105,6 @@ export const createBooking = async (req, res) =>{
 // GET /api/bookings/user
 export const getUserBookings = async (req, res) =>{
     try {
-        await connectDB();
         const user = req.user._id;
         const bookings = await Booking.find({user}).populate("room hotel").sort({createdAt: -1})
         res.json({success: true, bookings})
@@ -118,7 +115,6 @@ export const getUserBookings = async (req, res) =>{
 
 export const getHotelBookings = async (req, res) =>{
     try {
-        await connectDB();
         const hotel = await Hotel.findOne({owner: req.auth.userId});
         if(!hotel){
             return res.json({ success: false, message: "No Hotel found" });

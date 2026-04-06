@@ -1,7 +1,6 @@
 import Hotel from "../models/Hotel.js";
 import { v2 as cloudinary } from "cloudinary";
 import Room from "../models/Room.js";
-import connectDB from "../configs/db.js";
 
 // API to create a new room for a hotel
 export const createRoom = async (req, res)=>{
@@ -36,7 +35,6 @@ export const createRoom = async (req, res)=>{
 // API to get all rooms
 export const getRooms = async (req, res)=>{
     try {
-        await connectDB();
         const rooms = await Room.find({isAvailable: true}).populate({
             path: 'hotel',
             populate:{
