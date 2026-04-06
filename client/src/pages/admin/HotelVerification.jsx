@@ -4,7 +4,16 @@ import { toast } from 'react-hot-toast';
 import { useAppContext } from '../../context/AppContext';
 
 const HotelVerification = () => {
-  const { pendingHotels, fetchPendingHotels, setPendingHotels, fetchDashStats, axios, getToken } = useAppContext();
+  // Added fetchUser to the destructured context values
+  const { 
+    pendingHotels, 
+    fetchPendingHotels, 
+    setPendingHotels, 
+    fetchDashStats, 
+    fetchUser, // <--- New: Import this to refresh user status
+    axios, 
+    getToken 
+  } = useAppContext();
 
   useEffect(() => {
     fetchPendingHotels();
@@ -19,8 +28,15 @@ const HotelVerification = () => {
 
       if (data.success) {
         toast.success(`Hotel ${action === 'approve' ? 'Approved' : 'Rejected'} Successfully`);
-        setPendingHotels(prev => prev.filter(h => h._id !== hotelId));
+        
+        // 1. Remove the hotel from the local pending list
+        setPendingHotels(prev => prev.filter(h => h._id !== hotelId)); 
+        
+        // 2. Refresh the admin dashboard statistics
         fetchDashStats(); 
+
+        // 3. New: Force a refresh of the user data so the Navbar updates to "Dashboard"
+        fetchUser(); 
       } else {
         toast.error(data.message);
       }
