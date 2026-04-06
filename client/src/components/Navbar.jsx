@@ -26,6 +26,19 @@ const Navbar = () => {
     // Pulling everything needed from context
     const { user, navigate, isOwner, isAdmin, setShowHotelReg } = useAppContext();
 
+    const handleOwnerClick = () => {
+        if (isOwner) {
+            if (user?.hotelStatus === 'approved') {
+                navigate('/owner');
+            } else {
+                // Inform the user they are still in the verification queue
+                toast.error("Your hotel registration is pending admin approval.");
+            }
+        } else {
+            setShowHotelReg(true);
+        }
+    };
+
     useEffect(() => {
         setIsScrolled(location.pathname !== '/');
         const handleScroll = () => setIsScrolled(window.scrollY > 10);
@@ -50,8 +63,8 @@ const Navbar = () => {
                 ))}
                 
                 { user && !isAdmin && (
-                    <button className={`border px-4 py-1 text-sm font-light rounded-full cursor-pointer ${isScrolled ? 'text-black' : 'text-white'} transition-all`} onClick={() => isOwner ? navigate('/owner') : setShowHotelReg(true)}>
-                    {isOwner ? 'Dashboard' : 'List Your Hotel'}
+                    <button className={`border px-4 py-1 text-sm font-light rounded-full cursor-pointer ${isScrolled ? 'text-black' : 'text-white'} transition-all`} onClick={handleOwnerClick}>
+                    {isOwner ? (user.hotelStatus === 'approved' ? 'Dashboard' : 'Pending Approval') : 'List Your Hotel'}
                     </button>
                 )}
 
@@ -101,8 +114,8 @@ const Navbar = () => {
                     </a>
                 ))}
 
-                 {user && !isAdmin && <button className="border px-4 py-1 text-sm font-light rounded-full cursor-pointer transition-all border-gray-800" onClick={() => { setIsMenuOpen(false); isOwner ? navigate('/owner') : setShowHotelReg(true); }}>
-                   {isOwner ? 'Dashboard' : 'List Your Hotel'}
+                 {user && !isAdmin && <button className="border px-4 py-1 text-sm font-light rounded-full cursor-pointer transition-all border-gray-800" onClick={handleOwnerClick}>
+                   {isOwner ? (user.hotelStatus === 'approved' ? 'Dashboard' : 'Pending Approval') : 'List Your Hotel'}
                 </button>}
 
                 {isAdmin && <button className="bg-purple-600 text-white px-6 py-2 rounded-full cursor-pointer transition-all font-light" onClick={() => { setIsMenuOpen(false); navigate('/admin-dashboard'); }}>

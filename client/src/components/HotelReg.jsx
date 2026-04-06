@@ -17,7 +17,7 @@ const HotelReg = () => {
       const {data} = await axios.post(`/api/hotel/`, {name, contact, address, city}, {headers: {Authorization: `Bearer ${await getToken()}`}})
 
       if(data.success){
-        toast.success(data.message)
+        toast.success("Hotel registered! Waiting for admin approval.")
         setIsOwner(true)
         setShowHotelReg(false);
       }else{

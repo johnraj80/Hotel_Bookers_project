@@ -25,7 +25,7 @@ const App = () => {
   const location = useLocation();
 
   const isDashboardPath = location.pathname.includes('owner') || location.pathname.includes('admin');
-  const {showHotelReg} = useAppContext();
+  const {showHotelReg, isOwner, user} = useAppContext();
 
   return (
     <div>
@@ -38,7 +38,7 @@ const App = () => {
           <Route path='/rooms' element={<AllRooms />}/>
           <Route path='/rooms/:id' element={<RoomDetails />}/>
           <Route path='/my-bookings' element={<MyBookings />}/>
-          <Route path='/owner' element={<Layout />}>
+          <Route path='/owner' element={isOwner && user?.hotelStatus === 'approved' ? <Layout /> : <Navigate to="/" />}>
               <Route index element={<Dashboard />}/>
               <Route path="add-room" element={<AddRoom />}/>
               <Route path="list-room" element={<ListRoom />}/>
