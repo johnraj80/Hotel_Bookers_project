@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { assets } from '../assets/assets';
 import { useClerk, UserButton } from '@clerk/clerk-react';
 import { useAppContext } from '../context/AppContext';
+import toast from 'react-hot-toast'
 
 const BookIcon = () => (
     <svg className="w-4 h-4 text-gray-700" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -24,14 +25,14 @@ const Navbar = () => {
     const location = useLocation();
 
     // Pulling everything needed from context
-    const { user, navigate, isOwner, isAdmin, setShowHotelReg } = useAppContext();
+    const { user, navigate, isOwner, isAdmin, setShowHotelReg, dbUser } = useAppContext();
 
     const handleOwnerClick = () => {
         if (isOwner) {
-            if (user?.hotelStatus === 'approved') {
+            // 3. Check hotelStatus from your database (dbUser)
+            if (dbUser?.hotelStatus === 'approved') {
                 navigate('/owner');
             } else {
-                // Inform the user they are still in the verification queue
                 toast.error("Your hotel registration is pending admin approval.");
             }
         } else {

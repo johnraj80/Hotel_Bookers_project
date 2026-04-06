@@ -27,6 +27,9 @@ export const AppProvider = ({ children }) => {
     const [pendingHotels, setPendingHotels] = useState([]);
     const [transactions, setTransactions] = useState([]);
     const [userStats, setUserStats] = useState(null);
+    const [dbUser, setDbUser] = useState(null);
+
+    
 
     // FETCH FUNCTIONS
     const fetchRooms = async () => {
@@ -42,19 +45,26 @@ export const AppProvider = ({ children }) => {
         }
     };
 
+    // 1. Add a new state for the database user data
+
+
+// 2. Update fetchUser to store that data
     const fetchUser = async () => {
-        try {
-           const { data } = await axios.get('/api/user', { headers: { Authorization: `Bearer ${await getToken()}` } });
-           if (data.success) {
-            setIsOwner(data.role === "hotelOwner");
-            setIsAdmin(data.role === "admin");
-            setSearchedCities(data.recentSearchedCities || []); // Added fallback to empty array
-           } else {
-            setTimeout(() => { fetchUser(); }, 5000);
-           }
-        } catch (error) {
-            toast.error(error.message);
-        }
+            try {
+            const { data } = await axios.get('/api/user', { 
+                headers: { Authorization: `Bearer ${await getToken()}` } 
+            });
+            if (data.success) {
+                setDbUser(data.user); // Store the full user object from DB
+                setIsOwner(data.role === "hotelOwner");
+                setIsAdmin(data.role === "admin");
+                setSearchedCities(data.recentSearchedCities || []);
+            } else {
+                setTimeout(() => { fetchUser(); }, 5000);
+            }
+            } catch (error) {
+                toast.error(error.message);
+            }
     };
 
     // ADMIN FETCH FUNCTIONS
@@ -115,7 +125,7 @@ export const AppProvider = ({ children }) => {
 
     // THE MAGIC VALUE OBJECT (Everything must be exported here!)
     const value = {
-        currency, navigate, user, getToken, isOwner, setIsOwner, axios, showHotelReg, setShowHotelReg, searchedCities, setSearchedCities, rooms, setRooms, isAdmin, setIsAdmin, dashStats, fetchDashStats, registeredHotels, fetchRegisteredHotels, pendingHotels, fetchPendingHotels, setPendingHotels, transactions, fetchTransactions, userStats, fetchUserStats
+        currency, navigate, user, getToken, isOwner, setIsOwner, axios, showHotelReg, setShowHotelReg, searchedCities, setSearchedCities, rooms, setRooms, isAdmin, setIsAdmin, dashStats, fetchDashStats, registeredHotels, fetchRegisteredHotels, pendingHotels, fetchPendingHotels, setPendingHotels, transactions, fetchTransactions, userStats, fetchUserStats, fetchUser, dbUser,
     };
 
     return (
