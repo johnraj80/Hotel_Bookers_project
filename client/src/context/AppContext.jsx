@@ -55,14 +55,15 @@ export const AppProvider = ({ children }) => {
             const { data } = await axios.get('/api/user', { 
                 headers: { Authorization: `Bearer ${token}` } 
             });
+            
             if (data.success) {
-                setDbUser(data.user); // Now includes updated hotelStatus
-                setIsOwner(data.user.role === "hotelOwner");
+                setDbUser(data.user); 
+                // This is what controls the button text in the Navbar
+                setIsOwner(data.user.role === "hotelOwner"); 
                 setIsAdmin(data.user.role === "admin");
-                setSearchedCities(data.user.recentSearchedCities || []);
             }
         } catch (error) {
-            console.error("Fetch user error:", error);
+            toast.error("Error fetching user data");
         }
     };
 
