@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { data, useParams } from 'react-router-dom'
 import { assets, facilityIcons, roomCommonData, roomsDummyData } from '../assets/assets'
 import StarRating from '../components/StarRating'
 import { useAppContext } from '../context/AppContext'
@@ -62,12 +62,12 @@ const RoomDetails = () => {
                     { headers: { Authorization: `Bearer ${await getToken()}` } }
                 );
 
-                if (bookData.success) {
-                    toast.success(bookData.message);
+                if (Data.success) {
+                    toast.success(Data.message);
                     navigate('/my-bookings');
                     scrollTo(0, 0);
                 } else {
-                    toast.error(bookData.message);
+                    toast.error(data.message);
                 }
             } else {
                 setIsAvailable(false);
