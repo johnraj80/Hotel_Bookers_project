@@ -8,8 +8,8 @@ const checkAvailability = async ({ checkInDate, checkOutDate, room })=>{
     try {
         const bookings = await Booking.find({
             room,
-            checkInDate: { $lt: new Date(checkOutDate) }, 
-            checkOutDate: { $gt: new Date(checkInDate) },
+            checkInDate: {$lte: new Date(checkOutDate)},
+            checkOutDate: {$gte: new Date(checkInDate)},
         });
         const isAvailable = bookings.length === 0;
         return isAvailable;
@@ -35,44 +35,32 @@ export const checkAvailabilityAPI = async (req, res) =>{
 // API to create a new booking
 // POST /api/bookings/book
 
-export const createBooking = async (req, res) => {
+export const createBooking = async (req, res) =>{
     try {
         const { room, checkInDate, checkOutDate, guests } = req.body;
         const user = req.user._id;
 
-        // 1. Fetch room and verify it's active in the system
-        const roomData = await Room.findById(room).populate("hotel");
-        
-        if (!roomData) {
-            return res.json({ success: false, message: "Room not found" });
-        }
-
-        if (!roomData.isAvailable) {
-            return res.json({ success: false, message: "This room is currently not accepting new bookings" });
-        }
-
-        // 2. Check for date overlaps (ensure checkAvailability uses $lt and $gt)
+        // Before Booking Check Availability
         const isAvailable = await checkAvailability({
             checkInDate,
             checkOutDate,
             room
         });
 
-        if (!isAvailable) {
-            return res.json({ success: false, message: "Room is already booked for these dates" });
+        if(!isAvailable){
+            return res.json({success: false, message: "Room is not available"})
         }
+        // Get totalPrice from Room
+        const roomData = await Room.findById(room).populate("hotel");
+        let totalPrice = roomData.pricePerNight;
 
-        // 3. Calculate total price
-        const checkIn = new Date(checkInDate);
-        const checkOut = new Date(checkOutDate);
+        // Calculate totalPrice based on nights
+        const checkIn = new Date(checkInDate)
+        const checkOut = new Date(checkOutDate)
         const timeDiff = checkOut.getTime() - checkIn.getTime();
         const nights = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
-        if (nights <= 0) {
-            return res.json({ success: false, message: "Invalid date range" });
-        }
-
-        const totalPrice = roomData.pricePerNight * nights;
+        totalPrice *= nights;
         
         const booking = await Booking.create({
             user,
@@ -82,14 +70,13 @@ export const createBooking = async (req, res) => {
             checkInDate,
             checkOutDate,
             totalPrice,
-        });
+        })
 
-        // 4. Send Confirmation Email with corrected labels
         const mailOptions = {
             from: process.env.SENDER_EMAIL,
             to: req.user.email,
-            subject: 'Hotel Booking Details',
-            html: `
+            subject:'Hotel Booking Details',
+            html:`
                 <h2>Your Booking Details</h2>
                 <p>Dear ${req.user.username},</p>
                 <p>Thank you for your booking! Here are your details:</p>
@@ -97,22 +84,21 @@ export const createBooking = async (req, res) => {
                     <li><strong>Booking ID:</strong> ${booking._id}</li>
                     <li><strong>Hotel Name:</strong> ${roomData.hotel.name}</li>
                     <li><strong>Location:</strong> ${roomData.hotel.address}</li>
-                    <li><strong>Check-in:</strong> ${new Date(checkInDate).toDateString()}</li>
-                    <li><strong>Check-out:</strong> ${new Date(checkOutDate).toDateString()}</li>
-                    <li><strong>Total Price:</strong> ${totalPrice} (${nights} nights)</li>
+                    <li><strong>Check-in Date:</strong> ${booking.checkInDate.toDateString()}</li>
+                    <li><strong>Booking Amount:</strong> ${booking.totalPrice} / night</li>
                 </ul>
             `
-        };
+        }
 
-        await transporter.sendMail(mailOptions);
+        await transporter.sendMail(mailOptions)
 
-        res.json({ success: true, message: "Booking created successfully" });
+        res.json({ success: true, message: "Booking created successfully"})
 
     } catch (error) {
-        console.error(error);
-        res.json({ success: false, message: "Failed to create booking" });
+        console.log(error)
+        res.json({ success: false, message: "Failed to create booking"})
     }
-};
+}
 
 // API to get all bookings for a user
 // GET /api/bookings/user
