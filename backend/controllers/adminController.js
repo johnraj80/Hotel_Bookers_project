@@ -39,7 +39,7 @@ export const verifyHotel = async (req, res) => {
       // 1. Mark hotel as verified
       const hotel = await Hotel.findByIdAndUpdate(hotelId, { isVerified: true }, { new: true });
       
-      // 2. Update the User (Owner) status to 'approved'
+      // 2. CRITICAL: Update the Owner's hotelStatus in the User collection
       if (hotel) {
         await User.findByIdAndUpdate(hotel.owner, { hotelStatus: 'approved' });
       }
@@ -48,11 +48,11 @@ export const verifyHotel = async (req, res) => {
     } else if (action === 'reject') {
       const hotel = await Hotel.findById(hotelId);
       if (hotel) {
-        // Reset user status back to default
+        // Reset user status back to default if rejected
         await User.findByIdAndUpdate(hotel.owner, { hotelStatus: '', role: 'user' });
         await Hotel.findByIdAndDelete(hotelId);
       }
-      return res.json({ success: true, message: "Hotel application rejected and removed" });
+      return res.json({ success: true, message: "Hotel application rejected" });
     }
 
     res.json({ success: false, message: "Invalid action" });
