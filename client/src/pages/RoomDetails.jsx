@@ -42,41 +42,25 @@ const RoomDetails = () => {
     }
 
     // onSubmitHandler function to check availability & book the room
-    const onSubmitHandler = async (e) => {
-        e.preventDefault();
+    const onSubmitHandler = async (e)=>{
         try {
-            // 1. Perform Availability Check first
-            if (checkInDate >= checkOutDate) {
-                toast.error('Check-In Date should be less than Check-Out Date');
-                return;
-            }
-
-            const { data: availData } = await axios.post('/api/bookings/check-availability', { 
-                room: id, checkInDate, checkOutDate 
-            });
-
-            if (availData.success && availData.isAvailable) {
-                // 2. If available, proceed to book immediately
-                const { data: bookData } = await axios.post('/api/bookings/book', 
-                    { room: id, checkInDate, checkOutDate, guests, PaymentMethod: "Pay At Hotel" },
-                    { headers: { Authorization: `Bearer ${await getToken()}` } }
-                );
-
-                if (data.success) {
-                    toast.success(data.message);
-                    navigate('/my-bookings');
-                    scrollTo(0, 0);
-                } else {
-                    toast.error(data.message);
+            e.preventDefault();
+            if(!isAvailable){
+                return checkAvailabilty(); 
+            }else{
+                const { data } = await axios.post('/api/bookings/book',{room: id, checkInDate, checkOutDate, guests, PaymentMethod: "Pay At Hotel"},{headers: {Authorization: `Bearer ${await getToken()}`}})
+                if (data.success){
+                    toast.success(data.message)
+                    navigate('/my-bookings')
+                    scrollTo(0,0)
+                }else{
+                    toast.error(data.message)
                 }
-            } else {
-                setIsAvailable(false);
-                toast.error(availData.message || 'Room is not available for these dates');
             }
         } catch (error) {
-            toast.error(error.message);
+            toast.error(error.message)
         }
-    };
+    }
 
     useEffect(() => {
         const room = rooms.find(room => room._id === id)
