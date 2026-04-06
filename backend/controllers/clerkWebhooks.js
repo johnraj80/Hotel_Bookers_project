@@ -56,8 +56,9 @@ const clerkWebhooks = async (req, res) => {
             _id: data.id,
             email: data.email_addresses[0].email_address,
             username: fullName,
-            image: data.image_url || "",
+            image: data.image_url || "https://example.com/default-avatar.png",
             role: data.public_metadata?.role || "user",
+            recentSearchedCities: []
 
         }
         await User.create(userData);
@@ -73,8 +74,9 @@ const clerkWebhooks = async (req, res) => {
             _id: data.id,
             email: data.email_addresses[0].email_address,
             username: fullName,
-            image: data.image_url || "",
+            image: data.image_url || "https://example.com/default-avatar.png",
             role: data.public_metadata?.role || "user",
+            recentSearchedCities: []
         }
         await User.findByIdAndUpdate(data.id, userData, { runValidators: true });
         break;
