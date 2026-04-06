@@ -1,12 +1,21 @@
 // GET /api/user/
 
-export const getUserData = async (req, res)=>{
+export const getUserData = async (req, res) => {
     try {
-        const role = req.user.role;
-        const recentSearchedCities = req.user.recentSearchedCities;
-        res.json({success: true, role, recentSearchedCities})
+        // req.user is already populated by your protect middleware
+        const user = req.user; 
+
+        if (!user) {
+            return res.json({ success: false, message: "User not found" });
+        }
+
+        // Wrap the user object so it matches what AppContext expects
+        res.json({ 
+            success: true, 
+            user: user 
+        });
     } catch (error) {
-        res.json({success: false, message: error.message})
+        res.json({ success: false, message: error.message });
     }
 }
 

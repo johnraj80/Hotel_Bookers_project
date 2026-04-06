@@ -55,14 +55,15 @@ export const AppProvider = ({ children }) => {
             const { data } = await axios.get('/api/user', { 
                 headers: { Authorization: `Bearer ${token}` } 
             });
-            
+
             if (data.success) {
+                // data.user now exists because of the change in userController.js
                 setDbUser(data.user); 
-                // This is what controls the button text in the Navbar
                 setIsOwner(data.user.role === "hotelOwner"); 
                 setIsAdmin(data.user.role === "admin");
             }
         } catch (error) {
+            console.error("Fetch error:", error);
             toast.error("Error fetching user data");
         }
     };
