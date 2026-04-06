@@ -62,12 +62,12 @@ const RoomDetails = () => {
                     { headers: { Authorization: `Bearer ${await getToken()}` } }
                 );
 
-                if (Data.success) {
-                    toast.success(Data.message);
+                if (data.success) {
+                    toast.success(data.message);
                     navigate('/my-bookings');
                     scrollTo(0, 0);
                 } else {
-                    toast.error(Data.message);
+                    toast.error(data.message);
                 }
             } else {
                 setIsAvailable(false);
