@@ -1,30 +1,30 @@
-import User from "../models/User.js";
+// GET /api/user/
 
-export const getUserData = async (req, res) => {
+export const getUserData = async (req, res)=>{
     try {
-        const user = req.user; // Populated by protect middleware
-        if (!user) return res.json({ success: false, message: "User not found" });
-        
-        // Return the full object so AppContext can read .role and .hotelStatus
-        res.json({ success: true, user });
+        const role = req.user.role;
+        const recentSearchedCities = req.user.recentSearchedCities;
+        res.json({success: true, role, recentSearchedCities})
     } catch (error) {
-        res.json({ success: false, message: error.message });
+        res.json({success: false, message: error.message})
     }
-};
+}
 
-export const storeRecentSearchedCities = async (req, res) => {
+export const storeRecentSearchedCities = async (req, res)=>{
     try {
-        const { recentSearchedCity } = req.body;
-        const user = req.user;
-        if (user.recentSearchedCities.length < 3) {
-            user.recentSearchedCities.push(recentSearchedCity);
-        } else {
+        const {recentSearchedCity} = req.body;
+        const user = await req.user;
+
+        if(user.recentSearchedCities.length < 3){
+            user.recentSearchedCities.push(recentSearchedCity)
+        }else{
             user.recentSearchedCities.shift();
-            user.recentSearchedCities.push(recentSearchedCity);
+            user.recentSearchedCities.push(recentSearchedCity)
         }
         await user.save();
-        res.json({ success: true, message: "City added" });
+        res.json({success: true, message: "City added"})
+        
     } catch (error) {
-        res.json({ success: false, message: error.message });
+        res.json({success: false, message: error.message})
     }
-};
+}

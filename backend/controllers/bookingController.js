@@ -1,4 +1,3 @@
-import connectDB from "../configs/db.js";
 import transporter from "../configs/nodemailer.js";
 import Booking from "../models/Booking.js"
 import Hotel from "../models/Hotel.js";
