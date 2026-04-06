@@ -1,6 +1,6 @@
 import React from 'react'
 import Navbar from './components/Navbar'
-import {Route, Routes, useLocation, Navigate } from 'react-router-dom'
+import {Route, Routes, useLocation } from 'react-router-dom'
 import HomePage from './pages/HomePage';
 import Footer from './components/Footer';
 import AllRooms from './pages/AllRooms';
@@ -25,7 +25,7 @@ const App = () => {
   const location = useLocation();
 
   const isDashboardPath = location.pathname.includes('owner') || location.pathname.includes('admin');
-  const {showHotelReg, isOwner, user} = useAppContext();
+  const {showHotelReg} = useAppContext();
 
   return (
     <div>
@@ -38,7 +38,7 @@ const App = () => {
           <Route path='/rooms' element={<AllRooms />}/>
           <Route path='/rooms/:id' element={<RoomDetails />}/>
           <Route path='/my-bookings' element={<MyBookings />}/>
-          <Route path='/owner' element={isOwner && user?.hotelStatus === 'approved' ? <Layout /> : <Navigate to="/" />}>
+          <Route path='/owner' element={<Layout />}>
               <Route index element={<Dashboard />}/>
               <Route path="add-room" element={<AddRoom />}/>
               <Route path="list-room" element={<ListRoom />}/>

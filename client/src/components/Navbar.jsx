@@ -3,7 +3,6 @@ import { Link, useLocation } from 'react-router-dom';
 import { assets } from '../assets/assets';
 import { useClerk, UserButton } from '@clerk/clerk-react';
 import { useAppContext } from '../context/AppContext';
-import { toast } from 'react-hot-toast'; // Added import
 
 const BookIcon = () => (
     <svg className="w-4 h-4 text-gray-700" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -24,21 +23,8 @@ const Navbar = () => {
     const { openSignIn } = useClerk();
     const location = useLocation();
 
-    // Pulling dbUser (database user) from context instead of just Clerk user
-    const { user, dbUser, navigate, isOwner, isAdmin, setShowHotelReg } = useAppContext();
-
-    const handleOwnerClick = () => {
-        if (isOwner) {
-            // Logic relies on MongoDB status (dbUser)
-            if (dbUser?.hotelStatus === 'approved') {
-                navigate('/owner');
-            } else {
-                toast.error("Your hotel registration is pending admin approval.");
-            }
-        } else {
-            setShowHotelReg(true);
-        }
-    };
+    // Pulling everything needed from context
+    const { user, navigate, isOwner, isAdmin, setShowHotelReg } = useAppContext();
 
     useEffect(() => {
         setIsScrolled(location.pathname !== '/');
@@ -64,9 +50,8 @@ const Navbar = () => {
                 ))}
                 
                 { user && !isAdmin && (
-                    <button className={`border px-4 py-1 text-sm font-light rounded-full cursor-pointer ${isScrolled ? 'text-black' : 'text-white'} transition-all`} onClick={handleOwnerClick}>
-                    {/* Updated to check dbUser.hotelStatus */}
-                    {isOwner ? (dbUser?.hotelStatus === 'approved' ? 'Dashboard' : 'Pending Approval') : 'List Your Hotel'}
+                    <button className={`border px-4 py-1 text-sm font-light rounded-full cursor-pointer ${isScrolled ? 'text-black' : 'text-white'} transition-all`} onClick={() => isOwner ? navigate('/owner') : setShowHotelReg(true)}>
+                    {isOwner ? 'Dashboard' : 'List Your Hotel'}
                     </button>
                 )}
 
@@ -116,11 +101,11 @@ const Navbar = () => {
                     </a>
                 ))}
 
-                 {user && !isAdmin && <button className="border px-4 py-1 text-sm font-light rounded-full cursor-pointer transition-all border-gray-800" onClick={handleOwnerClick}>
-                   {isOwner ? (dbUser?.hotelStatus === 'approved' ? 'Dashboard' : 'Pending Approval') : 'List Your Hotel'}
+                 {user && !isAdmin && <button className="border px-4 py-1 text-sm font-light rounded-full cursor-pointer transition-all border-gray-800" onClick={() => { setIsMenuOpen(false); isOwner ? navigate('/owner') : setShowHotelReg(true); }}>
+                   {isOwner ? 'Dashboard' : 'List Your Hotel'}
                 </button>}
 
-                {isAdmin && <button className="bg-purple-600 text-white px-6 py-2 rounded-full cursor-pointer transition-all font-light" onClick={() => { setIsMenuOpen(false); navigate('/admin'); }}>
+                {isAdmin && <button className="bg-purple-600 text-white px-6 py-2 rounded-full cursor-pointer transition-all font-light" onClick={() => { setIsMenuOpen(false); navigate('/admin-dashboard'); }}>
                    Admin Panel
                 </button>}
 
