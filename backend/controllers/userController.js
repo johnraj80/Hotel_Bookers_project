@@ -9,7 +9,7 @@ export const getUserData = async (req, res) => {
             return res.json({ success: false, message: "User not found" });
         }
 
-        // Wrap the user object so it matches what AppContext expects
+        // Wrap the user in an object to match AppContext's expectations
         res.json({ 
             success: true, 
             user: user 
