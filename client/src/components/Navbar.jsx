@@ -29,7 +29,7 @@ const Navbar = () => {
 
     const handleOwnerClick = () => {
         if (isOwner) {
-            // Check hotelStatus from MongoDB (dbUser) instead of Clerk (user)
+            // Logic relies on MongoDB status (dbUser)
             if (dbUser?.hotelStatus === 'approved') {
                 navigate('/owner');
             } else {

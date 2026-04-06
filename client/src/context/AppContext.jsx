@@ -50,21 +50,20 @@ export const AppProvider = ({ children }) => {
 
 // 2. Update fetchUser to store that data
     const fetchUser = async () => {
-            try {
+        try {
+            const token = await getToken();
             const { data } = await axios.get('/api/user', { 
-                headers: { Authorization: `Bearer ${await getToken()}` } 
+                headers: { Authorization: `Bearer ${token}` } 
             });
             if (data.success) {
-                setDbUser(data.user); // Store the full user object from DB
-                setIsOwner(data.role === "hotelOwner");
-                setIsAdmin(data.role === "admin");
-                setSearchedCities(data.recentSearchedCities || []);
-            } else {
-                setTimeout(() => { fetchUser(); }, 5000);
+                setDbUser(data.user); // Now includes updated hotelStatus
+                setIsOwner(data.user.role === "hotelOwner");
+                setIsAdmin(data.user.role === "admin");
+                setSearchedCities(data.user.recentSearchedCities || []);
             }
-            } catch (error) {
-                toast.error(error.message);
-            }
+        } catch (error) {
+            console.error("Fetch user error:", error);
+        }
     };
 
     // ADMIN FETCH FUNCTIONS
