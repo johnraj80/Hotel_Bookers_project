@@ -9,6 +9,6 @@ const userRouter = express.Router();
 
 // TEMPORARY: Remove protection for testing
 userRouter.get("/", protect,  getUserData);
-userRouter.post("/store-recent-search", protect, storeRecentSearchedCities);
+userRouter.post("/recent-search", protect, storeRecentSearchedCities);
 
 export default userRouter;

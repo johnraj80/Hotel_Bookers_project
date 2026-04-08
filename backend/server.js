@@ -27,16 +27,14 @@ app.use(clerkMiddleware());
 // Api to listen to Clerk webhooks
 // app.use("/api/clerk", clerkWebhooks);
 // Routes
-app.get("/", (req, res) => {
-  res.send("Hello, World!");
-});
+app.get("/", (req, res) => res.send("Hello, World!"))
 
-app.use("/api/user", userRouter);
-app.use("/api/hotel", hotelRouter);
-app.use("/api/admin", adminRouter);
-app.use("/api/rooms", roomRouter);
-app.use("/api/bookings", bookingRouter);
-app.use("/api/payment", paymentRouter);
+app.use("/api/user", userRouter)
+app.use("/api/hotel", hotelRouter)
+app.use("/api/admin", adminRouter)
+app.use("/api/rooms", roomRouter)
+app.use("/api/bookings", bookingRouter)
+app.use("/api/payment", paymentRouter)
 
 
 const PORT = process.env.PORT || 3000;

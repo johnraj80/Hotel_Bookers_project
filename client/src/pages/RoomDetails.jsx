@@ -24,7 +24,7 @@ const RoomDetails = () => {
                 toast.error('Check-In Date should be less than Check-Out Date')
                 return;
             }
-            const {data} = await axios.post('/api/bookings/check-availability',{room: id, checkInDate, checkOutDate})
+            const {data} = await axios.post('/api/bookings/availability',{room: id, checkInDate, checkOutDate})
             if(data.success){
                 if(data.isAvailable){
                     setIsAvailable(true)
@@ -121,6 +121,7 @@ const RoomDetails = () => {
                 {/* Room Price */}
                 <p className='text-2xl font-medium'>{currency} {room.pricePerNight}/night</p>
             </div>
+
             {/* CheckIn CheckOut Form */}
             <form onSubmit={onSubmitHandler} className='flex flex-col md:flex-row items-start md:items-center justify-between bg-white shadow-[0px_0px_20px_rgba(0,0,0,0.15)] p-6 rounded-xl mx-auto mt-16 max-w-6xl'>
 
