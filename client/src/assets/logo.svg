@@ -1,0 +1,85 @@
+<svg width="165" height="35" viewBox="0 0 165 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#E8D48B"/>
+      <stop offset="50%" stop-color="#C9A84C"/>
+      <stop offset="100%" stop-color="#A8792A"/>
+    </linearGradient>
+    <linearGradient id="goldShine" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F0E0A0"/>
+      <stop offset="100%" stop-color="#C9A84C"/>
+    </linearGradient>
+    <linearGradient id="windowGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#D4EBE0"/>
+      <stop offset="100%" stop-color="#A8D4C0"/>
+    </linearGradient>
+    <linearGradient id="buildingGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2A7A56"/>
+      <stop offset="100%" stop-color="#1B5E42"/>
+    </linearGradient>
+  </defs>
+
+  <!-- ICON: compact building (fits in ~30x35) -->
+  <g transform="translate(1, 1)">
+    <!-- Roof -->
+    <polygon points="-1,11 16,2 33,11" fill="#2A7A56"/>
+    <polygon points="3,11 16,5 29,11" fill="none" stroke="url(#goldGrad)" stroke-width="0.5" opacity="0.8"/>
+
+    <!-- Flagpole -->
+    <line x1="16" y1="2" x2="16" y2="-1" stroke="url(#goldGrad)" stroke-width="0.8"/>
+    <polygon points="16,-1 21,1 16,3" fill="url(#goldGrad)"/>
+
+    <!-- Building body -->
+    <rect x="2" y="10" width="28" height="23" rx="3" fill="url(#buildingGrad)"/>
+
+    <!-- Cornice -->
+    <rect x="2" y="9" width="28" height="2.5" fill="url(#goldGrad)" opacity="0.45"/>
+
+    <!-- Windows row 1 -->
+    <rect x="5"  y="14" width="6" height="5" rx="1" fill="url(#windowGrad)" opacity="0.9"/>
+    <rect x="14" y="14" width="6" height="5" rx="1" fill="url(#windowGrad)" opacity="0.9"/>
+    <rect x="23" y="14" width="6" height="5" rx="1" fill="url(#windowGrad)" opacity="0.9"/>
+
+    <!-- Windows row 2 -->
+    <rect x="5"  y="21" width="6" height="4" rx="1" fill="url(#windowGrad)" opacity="0.7"/>
+    <rect x="23" y="21" width="6" height="4" rx="1" fill="url(#windowGrad)" opacity="0.7"/>
+
+    <!-- Arched door -->
+    <path d="M13 33 L13 24 Q17 20 21 24 L21 33 Z" fill="url(#goldShine)" opacity="0.95"/>
+    <path d="M13.5 24.2 Q17 21 20.5 24.2" fill="none" stroke="url(#goldGrad)" stroke-width="0.6"/>
+
+    <!-- Key badge (bottom-right) -->
+    <g transform="translate(21.5, 20)">
+      <circle cx="5.5" cy="5.5" r="6" fill="#0D3526" stroke="url(#goldGrad)" stroke-width="0.8"/>
+      <!-- Key bow -->
+      <circle cx="5.5" cy="3.2" r="2" fill="none" stroke="url(#goldGrad)" stroke-width="1.2"/>
+      <!-- Key blade -->
+      <rect x="4.8" y="4.8" width="1.4" height="4" rx="0.4" fill="url(#goldGrad)"/>
+      <!-- Teeth -->
+      <rect x="6.2" y="6.2" width="1.5" height="1" rx="0.2" fill="url(#goldGrad)"/>
+      <rect x="6.2" y="7.6" width="1.1" height="0.8" rx="0.2" fill="url(#goldGrad)"/>
+    </g>
+  </g>
+
+  <!-- WORDMARK -->
+  <!-- "HOTEL" small caps, white -->
+  <text
+    font-family="'Cormorant Garamond', 'Times New Roman', Georgia, serif"
+    font-weight="700"
+    font-size="10"
+    fill="#FFFFFF"
+    letter-spacing="2.5"
+    x="38" y="14">HOTEL</text>
+
+  <!-- Gold rule -->
+  <rect x="38" y="16.5" width="122" height="0.7" fill="url(#goldGrad)" opacity="0.7"/>
+
+  <!-- "BOOKERS" in gold -->
+  <text
+    font-family="'Cormorant Garamond', 'Times New Roman', Georgia, serif"
+    font-weight="700"
+    font-size="15"
+    fill="url(#goldGrad)"
+    letter-spacing="2"
+    x="38" y="30">BOOKERS</text>
+</svg>

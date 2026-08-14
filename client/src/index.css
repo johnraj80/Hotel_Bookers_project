@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Playfair:ital,opsz,wght@0,5..1200,300..900;1,5..1200,300..900&display=swap');
+
+@import "tailwindcss";
+
+/* Enables class-based dark mode: toggling `dark` on <html> activates dark: variants */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme{
+  --color-primary: #2563EB;
+  --color-secondary: #FBBf24;
+}
+
+*{
+  font-family: Outfit;
+}
+
+.font-playfair {
+  font-family: Playfair;
+}
+
+body {
+  @apply bg-white text-gray-800 dark:bg-gray-950 dark:text-gray-100 transition-colors duration-300;
+}
